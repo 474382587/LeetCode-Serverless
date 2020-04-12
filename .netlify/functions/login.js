@@ -96,8 +96,6 @@ exports.handler = function (event, context, callback) {
                     }
                 );
                 return
-
-
             } else {
                 callback(null, {
                     statusCode: 400,
@@ -110,27 +108,7 @@ exports.handler = function (event, context, callback) {
                 })
                 db.close()
             }
-
-
         }
-
-
-
-        const newUser = new User({
-            username,
-            password,
-        })
-        const response = await newUser.save()
-        console.log('I am connected 212312312')
-
-
-
-
-
-
-
-        console.log(123123133131232131231232)
-
     });
 
     // 
