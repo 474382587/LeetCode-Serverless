@@ -56,7 +56,7 @@ exports.handler = function (event, context, callback) {
         console.log(res)
         if (!res) {
             callback(null, {
-                statusCode: 200,
+                statusCode: 404,
                 body: JSON.stringify({
                     result: {
                         msg: 'No such user found!'
