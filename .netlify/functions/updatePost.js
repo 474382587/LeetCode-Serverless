@@ -69,7 +69,7 @@ exports.handler = function (event, context, callback) {
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', async function () {
         // we're connected!
-        console.log('I am connected')
+        console.log('I am connected123')
         try {
             const response = await Post.findOneAndUpdate({ _id: id }, {
                 content,
@@ -80,6 +80,7 @@ exports.handler = function (event, context, callback) {
                 likes,
                 Comments
             })
+            console.log(1111111111111111111111111111)
             callback(null, {
                 statusCode: 200,
                 body: JSON.stringify({
