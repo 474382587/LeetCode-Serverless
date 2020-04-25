@@ -13,7 +13,7 @@
 
 const mongoose = require('mongoose');
 // 连接数据库 - connect databse
-mongoose.connect("mongodb+srv://jerkjoe:jinyuhui1994@cluster0-t5mtc.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true, useFindAndModify: true, useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://jerkjoe:jinyuhui1994@cluster0-t5mtc.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true });
 
 var PostSchema = new mongoose.Schema({
     content: String,
@@ -91,6 +91,7 @@ exports.handler = function (event, context, callback) {
                 })
             })
         } catch (error) {
+            console.log(error)
             callback(error, {
                 statusCode: 400,
                 body: JSON.stringify({
