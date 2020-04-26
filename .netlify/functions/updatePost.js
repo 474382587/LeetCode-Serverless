@@ -91,6 +91,7 @@ exports.handler = function (event, context, callback) {
                     error: false
                 })
             })
+            db.close()
         } catch (error) {
             console.log(error)
             callback(error, {
@@ -102,7 +103,6 @@ exports.handler = function (event, context, callback) {
                     },
                 })
             })
-        } finally {
             db.close()
         }
 
