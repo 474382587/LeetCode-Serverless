@@ -11,10 +11,8 @@
 }
  */
 
-const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 // 连接数据库 - connect databse
-mongoose.connect("mongodb+srv://jerkjoe:jinyuhui1994@cluster0-t5mtc.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true });
 
 var PostSchema = new mongoose.Schema({
     content: String,
@@ -26,7 +24,6 @@ var PostSchema = new mongoose.Schema({
     Comments: Array
 })
 var Post = mongoose.model('Post', PostSchema)
-
 exports.handler = function (event, context, callback) {
     // your server-side functionality
     const { httpMethod, headers, path, queryStringParameters } = event
@@ -55,15 +52,22 @@ exports.handler = function (event, context, callback) {
         })
     }
     console.log('body')
+
+    mongoose.connect("mongodb+srv://jerkjoe:jinyuhui1994@cluster0-t5mtc.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true });
+    console.log(12312312312312)
+    
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
-    console.log('body2')
+    console.log('db')
+    console.log('db: ', db)
     db.once('open', async function () {
         // we're connected!
         console.log('I am connected')
+
         try {
-            const response = await Post.findById(id) || null
+            const response = await Post.findById(id).exec() || null
             console.log(response)
+            if (response) await response.save()
             callback(null, {
                 statusCode: 200,
                 body: JSON.stringify({
@@ -85,9 +89,10 @@ exports.handler = function (event, context, callback) {
                 })
             })
         } finally {
+            console.log('closed')
             db.close()
         }
-                
+
     });
     console.log('body3')
     // 
